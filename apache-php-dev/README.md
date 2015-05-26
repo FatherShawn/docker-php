@@ -1,29 +1,38 @@
-Apache PHP DEV Docker image
+apache-php-dev docker image
 ===========================
 
 A Docker image with apache and php and various tools which can be used for development.
 
 * Apache and PHP (uses dockerimage [yoshz/apache-php](https://registry.hub.docker.com/u/yoshz/apache-php/))
 * System tools:
-** Node.js 0.10.36
-** Ruby 1.9.3
-** Rubygems 2.4.5
-** Bundler 1.8.2
+  * Node.js 0.10.36
+  * Ruby 1.9.3
+  * Rubygems 2.4.5
+  * Bundler 1.8.2
 * PHP tools:
-** Drush 6.5.0
-** Phing 2.10.0
-** Phpunit 4.5.0
-** PHP Code Sniffer 2.2.0 (including standards for Drupal and Symfony2)
+  * Drush 6.5.0
+  * Phing 2.10.0
+  * Phpunit 4.5.0
+  * PHP Code Sniffer 2.2.0 (including standards for Drupal and Symfony2)
 * Build tools:
-** Bower 1.3.12
-** Grunt-cli 0.1.13
-** Fontforge & sfnt2woff
+  * Bower 1.3.12
+  * Grunt-cli 0.1.13
+  * Fontforge & sfnt2woff
+
+
+Download image
+--------------
+
+This image is available on [Docker Hub Registry](https://registry.hub.docker.com/u/yoshz/apache-php-dev/).
+
+
+    docker pull yoshz/apache-php-dev:5.5
 
 
 Build image
 -----------
 
-   docker build -t yoshz/apache-php-dev:5.5 .
+    docker build -t yoshz/apache-php-dev:5.5 .
 
 
 Start a new container
@@ -37,7 +46,7 @@ It is possible to autocreate a new system user when the container starts:
         -e USER_PUBLIC_KEY=`cat ~/.ssh/id_rsa.pub` \
         -e GIT_NAME=username \
         -e GIT_EMAIL=username@domain \
-        yoshz/apache-php-dev
+        yoshz/apache-php-dev:5.5
 
 The following optional environment variables are available:
 
@@ -49,3 +58,9 @@ The following optional environment variables are available:
 * *GIT_EMAIL*: GIT email to attach to system user
 
 The user will be created with sudo rights.
+
+Contact
+-------
+
+For issues, questions or more docker images go to:
+[https://github.com/yoshz/docker-php](https://github.com/yoshz/docker-php)
