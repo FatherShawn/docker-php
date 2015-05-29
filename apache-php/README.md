@@ -8,6 +8,7 @@ A Docker image based on Ubuntu 14.04 installed with:
   * mod_php5
   * mod_vhost_alias
   * mod_headers
+  * mod_ssl
 * PHP 5.5.9 with enabled extensions:
   * apcu
   * curl

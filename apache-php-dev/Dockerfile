@@ -1,4 +1,4 @@
-FROM yoshz/apache-php:5.5
+FROM yoshz/apache-php:5.5-1.1
 MAINTAINER Yosh de Vos "yosh@elzorro.nl"
 
 # Install supervisor, sshd, xdebug, ruby and various dev tools

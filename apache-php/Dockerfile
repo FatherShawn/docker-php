@@ -31,7 +31,7 @@ RUN locale-gen en_US.UTF-8
 ADD default-vhost.conf /etc/apache2/sites-available/000-default.conf
 
 # Enable apache modules
-RUN a2enmod rewrite php5 vhost_alias headers
+RUN a2enmod rewrite php5 vhost_alias headers ssl
 
 #  Add php config overrides
 ADD php.ini /etc/php5/mods-available/overrides.ini
@@ -49,5 +49,5 @@ RUN curl -sSL https://github.com/jwilder/dockerize/releases/download/v0.0.2/dock
 ADD apache-run.sh /apache-run.sh
 RUN chmod 0500 /apache-run.sh
 
-EXPOSE 80
+EXPOSE 80 443
 CMD ["/apache-run.sh"]
