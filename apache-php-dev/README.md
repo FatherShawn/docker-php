@@ -5,18 +5,19 @@ A Docker image with apache and php and various tools which can be used for devel
 
 * Apache and PHP (uses dockerimage [yoshz/apache-php](https://registry.hub.docker.com/u/yoshz/apache-php/))
 * System tools:
-  * Node.js 0.10.36
-  * Ruby 1.9.3
-  * Rubygems 2.4.5
-  * Bundler 1.8.2
+  * Node.js
+  * Ruby
+  * Rubygems
+  * Bundler
 * PHP tools:
-  * Drush 6.5.0
-  * Phing 2.10.0
-  * Phpunit 4.5.0
-  * PHP Code Sniffer 2.2.0 (including standards for Drupal and Symfony2)
+  * Drush 6.x
+  * Phing
+  * Phpunit
+  * PHP Code Sniffer (including standards for Drupal and Symfony2)
 * Build tools:
-  * Bower 1.3.12
-  * Grunt-cli 0.1.13
+  * Bower
+  * Grunt-cli
+  * Gulp
   * Fontforge & sfnt2woff
 
 

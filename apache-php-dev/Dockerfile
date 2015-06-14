@@ -23,8 +23,8 @@ RUN gem install rubygems-update bundler
 RUN curl -sL https://deb.nodesource.com/setup | bash - && \
     apt-get -yq install nodejs
 
-# Install bower and grunt
-RUN npm install -g bower grunt-cli
+# Install bower, grunt and gulp
+RUN npm install -g bower grunt-cli gulp
 
 # Enable xdebug
 RUN echo "xdebug.max_nesting_level=500" >> /etc/php5/mods-available/xdebug.ini && \
@@ -67,8 +67,8 @@ ADD entrypoint.sh /entrypoint.sh
 RUN chmod 0500 /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
 
-# Expose ssh
-EXPOSE 22
+# Expose ssh and livereload
+EXPOSE 22 35729
 
 WORKDIR /var/www
 CMD ["/usr/bin/supervisord"]
