@@ -13,12 +13,6 @@ This image is available on [Docker Hub Registry](https://registry.hub.docker.com
     docker pull yoshz/apache-php-drush:5.5
 
 
-Build image
------------
-
-    docker build -t yoshz/apache-php-drush:5.5 .
-
-
 Contact
 -------
 

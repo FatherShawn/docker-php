@@ -1,0 +1,6 @@
+[alias]
+        lol = log --graph --decorate --color=auto --pretty=oneline --abbrev-commit --all
+[core]
+        autocrlf = input
+[push]
+	default = simple

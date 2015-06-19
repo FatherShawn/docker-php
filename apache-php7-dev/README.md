@@ -31,7 +31,7 @@ Download image
 This image is available on [Docker Hub Registry](https://registry.hub.docker.com/u/yoshz/apache-php-dev/).
 
 
-    docker pull yoshz/apache-php-dev:5.5
+    docker pull yoshz/apache-php-dev:7.0
 
 
 Start a new container
@@ -45,7 +45,7 @@ It is possible to autocreate a new system user when the container starts:
         -e USER_PUBLIC_KEY=`cat ~/.ssh/id_rsa.pub` \
         -e GIT_NAME=username \
         -e GIT_EMAIL=username@domain \
-        yoshz/apache-php-dev:5.5
+        yoshz/apache-php-dev:7.0
 
 The following optional environment variables are available:
 

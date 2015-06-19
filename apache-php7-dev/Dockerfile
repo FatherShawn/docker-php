@@ -1,21 +1,18 @@
-FROM yoshz/apache-php:5.5-1.1
+FROM yoshz/apache-php:7.0-dev
 MAINTAINER Yosh de Vos "yosh@elzorro.nl"
 ENV RELEASE_DATE 2015-06-21
 
 # Install supervisor, sshd, xdebug, ruby and various dev tools
 RUN apt-get update && \
-    apt-get -yq install supervisor openssh-server php5-xdebug ruby ruby-dev build-essential \
+    apt-get -yq install supervisor openssh-server ruby ruby-dev build-essential \
                 acl graphviz sshpass wget && \
     mkdir -p /var/run/sshd
-
-# Configure openssh server
-ADD ssh/* /etc/ssh2/
 
 # Configure git
 ADD gitconfig /etc/gitconfig
 
 # Configure php
-RUN sed -i -e 's/^display_errors.*$/display_errors = On/' /etc/php5/apache2/php.ini /etc/php5/cli/php.ini
+RUN echo "display_errors = On" > /etc/php7/conf.d/display_errors.ini
 
 # Install bundler
 RUN gem install rubygems-update bundler
@@ -28,8 +25,8 @@ RUN curl -sL https://deb.nodesource.com/setup | bash - && \
 RUN npm install -g bower grunt-cli gulp
 
 # Enable xdebug
-RUN echo "xdebug.max_nesting_level=500" >> /etc/php5/mods-available/xdebug.ini && \
-    php5enmod xdebug
+#RUN echo "xdebug.max_nesting_level=500" >> /etc/php5/mods-available/xdebug.ini && \
+#    php5enmod xdebug
 
 # Install drush, phing, phpunit and phpcs
 RUN export COMPOSER_HOME=/usr/local/composer && \
