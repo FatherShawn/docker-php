@@ -29,13 +29,13 @@ RUN apt-get update && \
 RUN locale-gen en_US.UTF-8
 
 # Add apache default vhost configuration
-ADD default-vhost.conf /etc/apache2/sites-available/000-default.conf
+ADD dist/default-vhost.conf /etc/apache2/sites-available/000-default.conf
 
 # Enable apache modules
 RUN a2enmod rewrite php5 vhost_alias headers ssl
 
 #  Add php config overrides
-ADD php.ini /etc/php5/mods-available/overrides.ini
+ADD dist/php.ini /etc/php5/mods-available/overrides.ini
 
 # Enable php modules
 RUN php5enmod apcu curl gd mcrypt mongo mysql intl json sqlite3 ssh2 xsl overrides/99
@@ -47,7 +47,7 @@ RUN COMPOSER_HOME=/usr/local/composer curl -sS https://getcomposer.org/installer
 RUN curl -sSL https://github.com/jwilder/dockerize/releases/download/v0.0.2/dockerize-linux-amd64-v0.0.2.tar.gz | tar -C /usr/local/bin -xzf -
 
 # Add run file
-ADD apache-run.sh /apache-run.sh
+ADD dist/apache-run.sh /apache-run.sh
 RUN chmod 0500 /apache-run.sh
 
 EXPOSE 80 443

@@ -1,8 +1,7 @@
 #!/bin/bash
 cd "$(dirname "$0")"
 VERSION=$(cat VERSION)
-
-rm -rf dist/usr dist/etc
+rm -rf dist && mkdir dist && cp -a ../docker-files/* dist/
 
 docker run --name php7-build yoshz/apache-php-build:7.0-dev
 

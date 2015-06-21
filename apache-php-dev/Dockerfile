@@ -9,10 +9,10 @@ RUN apt-get update && \
     mkdir -p /var/run/sshd
 
 # Configure openssh server
-ADD ssh/* /etc/ssh2/
+ADD dist/ssh/* /etc/ssh2/
 
 # Configure git
-ADD gitconfig /etc/gitconfig
+ADD dist/gitconfig /etc/gitconfig
 
 # Configure php
 RUN sed -i -e 's/^display_errors.*$/display_errors = On/' /etc/php5/apache2/php.ini /etc/php5/cli/php.ini
@@ -61,10 +61,10 @@ RUN apt-get install -yq fontforge zlib1g-dev && \
 RUN rm -rf /var/lib/apt/lists/*
 
 # Add supervisor configuration
-ADD supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+ADD dist/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 # Add entrypoint script
-ADD entrypoint.sh /entrypoint.sh
+ADD dist/dev-entrypoint.sh /entrypoint.sh
 RUN chmod 0500 /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
 

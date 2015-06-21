@@ -43,13 +43,13 @@ RUN a2dismod mpm_event && \
     a2enmod mpm_prefork rewrite vhost_alias headers ssl php7
 
 # Add php handler
-ADD php7.conf /etc/apache2/conf-enabled/php7.conf
+ADD dist/php7.conf /etc/apache2/conf-enabled/php7.conf
 
 # Add apache default vhost configuration
-ADD default-vhost.conf /etc/apache2/sites-available/000-default.conf
+ADD dist/default-vhost.conf /etc/apache2/sites-available/000-default.conf
 
 #  Add php config overrides
-ADD php.ini /etc/php7/conf.d/overrides.ini
+ADD dist/php.ini /etc/php7/conf.d/overrides.ini
 
 # Install composer
 RUN COMPOSER_HOME=/usr/local/composer curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
@@ -58,7 +58,7 @@ RUN COMPOSER_HOME=/usr/local/composer curl -sS https://getcomposer.org/installer
 RUN curl -sSL https://github.com/jwilder/dockerize/releases/download/v0.0.2/dockerize-linux-amd64-v0.0.2.tar.gz | tar -C /usr/local/bin -xzf -
 
 # Add run file
-ADD apache-run.sh /apache-run.sh
+ADD dist/apache-run.sh /apache-run.sh
 RUN chmod 0500 /apache-run.sh
 
 EXPOSE 80 443

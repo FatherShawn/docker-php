@@ -9,7 +9,7 @@ RUN apt-get update && \
     mkdir -p /var/run/sshd
 
 # Configure git
-ADD gitconfig /etc/gitconfig
+ADD dist/gitconfig /etc/gitconfig
 
 # Configure php
 RUN echo "display_errors = On" > /etc/php7/conf.d/display_errors.ini
@@ -58,10 +58,10 @@ RUN apt-get install -yq fontforge zlib1g-dev && \
 RUN rm -rf /var/lib/apt/lists/*
 
 # Add supervisor configuration
-ADD supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+ADD dist/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 # Add entrypoint script
-ADD entrypoint.sh /entrypoint.sh
+ADD dist/dev-entrypoint.sh /entrypoint.sh
 RUN chmod 0500 /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
 
