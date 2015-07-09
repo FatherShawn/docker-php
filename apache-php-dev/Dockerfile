@@ -1,6 +1,6 @@
 FROM yoshz/apache-php:5.5-1.1
 MAINTAINER Yosh de Vos "yosh@elzorro.nl"
-ENV RELEASE_DATE 2015-06-21
+ENV RELEASE_DATE 2015-07-09
 
 # Install supervisor, sshd, xdebug, ruby and various dev tools
 RUN apt-get update && \
@@ -18,14 +18,14 @@ ADD dist/gitconfig /etc/gitconfig
 RUN sed -i -e 's/^display_errors.*$/display_errors = On/' /etc/php5/apache2/php.ini /etc/php5/cli/php.ini
 
 # Install bundler
-RUN gem install rubygems-update bundler
+RUN gem install rubygems-update bundler sass
 
 # Install nodejs
 RUN curl -sL https://deb.nodesource.com/setup | bash - && \
     apt-get -yq install nodejs
 
 # Install bower, grunt and gulp
-RUN npm install -g bower grunt-cli gulp
+RUN npm install -g bower grunt-cli gulp uglify-js uglifycss
 
 # Enable xdebug
 RUN echo "xdebug.max_nesting_level=500" >> /etc/php5/mods-available/xdebug.ini && \
