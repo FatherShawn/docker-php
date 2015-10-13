@@ -1,6 +1,6 @@
-FROM ubuntu:14.04.2
+FROM ubuntu:14.04.3
 MAINTAINER Yosh de Vos "yosh@elzorro.nl"
-ENV RELEASE_DATE 2015-06-21
+ENV RELEASE_DATE 2015-10-13
 
 # Install base packages
 ENV DEBIAN_FRONTEND noninteractive

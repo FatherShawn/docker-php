@@ -3,7 +3,7 @@ PHP Docker images
 
 This repository contains Dockerfiles for the following PHP docker images.
 
-All images are based on `ubuntu:14.04.2` image.
+All images are based on `ubuntu:14.04.3` image.
 
 
 [yoshz/apache-php:5.5](apache-php)

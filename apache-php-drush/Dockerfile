@@ -1,6 +1,6 @@
 FROM yoshz/apache-php:5.5
 MAINTAINER Yosh de Vos "yosh@elzorro.nl"
-ENV RELEASE_DATE 2015-06-21
+ENV RELEASE_DATE 2015-10-13
 
 # Install composer and drush
 RUN export COMPOSER_HOME=/usr/local/composer && \

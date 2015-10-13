@@ -1,6 +1,6 @@
-FROM yoshz/apache-php:5.5-1.1
+FROM yoshz/apache-php:5.5-1.2
 MAINTAINER Yosh de Vos "yosh@elzorro.nl"
-ENV RELEASE_DATE 2015-07-09
+ENV RELEASE_DATE 2015-10-13
 
 # Install supervisor, sshd, xdebug, ruby and various dev tools
 RUN apt-get update && \
@@ -33,7 +33,7 @@ RUN echo "xdebug.max_nesting_level=500" >> /etc/php5/mods-available/xdebug.ini &
 
 # Install drush, phing, phpunit and phpcs
 RUN export COMPOSER_HOME=/usr/local/composer && \
-    composer global require drush/drush:6.5.0 phing/phing phpunit/phpunit squizlabs/php_codesniffer && \
+    composer global require drush/drush:6.5.0 phing/phing:2.* phpunit/phpunit:4.* squizlabs/php_codesniffer && \
     curl http://download.pear.php.net/package/Console_Table-1.1.3.tgz -o /tmp/Console_Table-1.1.3.tgz && \
     tar xzf /tmp/Console_Table-1.1.3.tgz -C /usr/local/composer/vendor/drush/drush/lib && \
     git clone git://github.com/escapestudios/Symfony2-coding-standard.git $COMPOSER_HOME/vendor/squizlabs/php_codesniffer/CodeSniffer/Standards/Symfony2 && \
