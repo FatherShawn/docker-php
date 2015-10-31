@@ -12,6 +12,10 @@ VERSION=$(cat apache-php-drush/VERSION)
 docker push yoshz/apache-php-drush:5.5-$VERSION
 docker push yoshz/apache-php-drush:5.5
 
+VERSION=$(cat php-fpm/VERSION)
+docker push yoshz/php-fpm:5.5-$VERSION
+docker push yoshz/php-fpm:5.5
+
 VERSION=$(cat apache-php7/VERSION)
 docker push yoshz/apache-php:7.0-$VERSION
 docker push yoshz/apache-php:7.0
