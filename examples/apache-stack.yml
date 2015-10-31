@@ -1,0 +1,22 @@
+mysql:
+  image: mysql:5.6
+  hostname: mysql
+  ports:
+    - "3306:3306"
+  volumes:
+    - "./data/mysql:/var/lib/mysql"
+  environment:
+    - MYSQL_ROOT_PASSWORD=pass
+
+php70:
+  image: yoshz/apache-php-dev:7.0
+  container_name: php70
+  hostname: php70
+  ports:
+    - "80:80"
+    - "2022:22"
+  links:
+    - "mysql:db"
+  volumes:
+    - "./html:/var/www/html"
+  env_file: env_user

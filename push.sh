@@ -1,25 +1,22 @@
 #!/bin/bash
+set -e
 
-VERSION=$(cat apache-php/VERSION)
-docker push yoshz/apache-php:5.5-$VERSION
-docker push yoshz/apache-php:5.5
+IMAGES_55="php apache-php apache-php-dev php-fpm php-fpm-dev php-v8js"
+IMAGES_70="php apache-php apache-php-dev php-fpm php-fpm-dev"
+VERSION=2.0
 
-VERSION=$(cat apache-php-dev/VERSION)
-docker push yoshz/apache-php-dev:5.5-$VERSION
-docker push yoshz/apache-php-dev:5.5
+for IMAGE in $IMAGES_55
+do
+    docker tag -f yoshz/${IMAGE}:5.5 yoshz/${IMAGE}:latest
+    docker tag -f yoshz/${IMAGE}:5.5 yoshz/${IMAGE}:5.5-${VERSION}
+    docker push yoshz/${IMAGE}:5.5-$VERSION
+    docker push yoshz/${IMAGE}:5.5
+    docker push yoshz/${IMAGE}:latest
+done
 
-VERSION=$(cat apache-php-drush/VERSION)
-docker push yoshz/apache-php-drush:5.5-$VERSION
-docker push yoshz/apache-php-drush:5.5
-
-VERSION=$(cat php-fpm/VERSION)
-docker push yoshz/php-fpm:5.5-$VERSION
-docker push yoshz/php-fpm:5.5
-
-VERSION=$(cat apache-php7/VERSION)
-docker push yoshz/apache-php:7.0-$VERSION
-docker push yoshz/apache-php:7.0
-
-VERSION=$(cat apache-php7-dev/VERSION)
-docker push yoshz/apache-php-dev:7.0-$VERSION
-docker push yoshz/apache-php-dev:7.0
+for IMAGE in $IMAGES_70
+do
+    docker tag -f yoshz/${IMAGE}:7.0 yoshz/${IMAGE}:7.0-${VERSION}
+    docker push yoshz/${IMAGE}:7.0-$VERSION
+    docker push yoshz/${IMAGE}:7.0
+done

@@ -1,0 +1,31 @@
+mysql:
+  image: mysql:5.6
+  hostname: mysql
+  ports:
+    - "3306:3306"
+  volumes:
+    - "./data/mysql:/var/lib/mysql"
+  environment:
+    - MYSQL_ROOT_PASSWORD=pass
+
+php-fpm:
+  image: yoshz/php-fpm-dev:7.0
+  hostname: php-fpm
+  ports:
+    - "2022:22"
+  links:
+    - "mysql:db"
+  volumes:
+    - "./html:/var/www/html"
+  env_file: env_user
+
+nginx:
+  image: nginx
+  hostname: nginx
+  ports:
+    - "80:80"
+  links:
+    - "php-fpm:php-fpm"
+  volumes:
+    - "./conf/nginx:/etc/nginx/conf.d"
+    - "./html:/var/www/html"

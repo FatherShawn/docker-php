@@ -1,3 +1,0 @@
-[submodule "acache-php7-build/php-src"]
-	path = apache-php7-build/php-src
-	url = git@github.com:php/php-src.git

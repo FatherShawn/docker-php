@@ -1,0 +1,8 @@
+# User id (same as on host, see `id -u`)
+USER_ID=
+# User name (same as on host, see `id -un`)
+USER_CREATE=
+# Optional password
+USER_PASSWORD=
+# Optional public SSH key (see `cat ~/.ssh/id_rsa.pub` or generate a new key)
+USER_PUBLIC_KEY=

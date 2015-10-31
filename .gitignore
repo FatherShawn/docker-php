@@ -1,1 +1,3 @@
 dist/
+/examples/data
+/examples/env_user
