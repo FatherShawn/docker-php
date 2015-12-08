@@ -22,7 +22,7 @@ RUN sed -i -e 's/^display_errors.*$/display_errors = On/' /etc/php5/apache2/php.
 
 # Install and enable xdebug
 RUN echo "xdebug.max_nesting_level=500" > /etc/php5/mods-available/xdebug.ini && \
-    echo "alias php='php -dzend_extension=xdebug.so'\nalias phpunit='php $(which phpunit)'" >> /etc/bash.bashrc && \
+    echo "alias php='php -dzend_extension=xdebug.so'\nalias phpunit='php /usr/local/bin/phpunit'" >> /etc/bash.bashrc && \
     php5enmod xdebug
 
 # Install development tools
