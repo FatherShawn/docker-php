@@ -3,6 +3,21 @@
 export DEBIAN_FRONTEND="noninteractive"
 export COMPOSER_HOME=/usr/local/composer
 
+# Install git aware prompt
+curl https://codeload.github.com/jimeh/git-aware-prompt/zip/master > /tmp/git-aware-prompt-master.zip
+unzip /tmp/git-aware-prompt-master.zip -d /usr/local
+mv /usr/local/git-aware-prompt-master /usr/local/git-aware-prompt
+rm /tmp/git-aware-prompt-master.zip
+cat <<'EOF' >> /etc/skel/.bashrc
+
+# Enable git-aware-prompt
+export GITAWAREPROMPT=/usr/local/git-aware-prompt
+if [ -d "$GITAWAREPROMPT" ]; then
+    source "${GITAWAREPROMPT}/main.sh"
+    export PS1="\${debian_chroot:+(\$debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\] \[$txtcyn\]\$git_branch\[$txtred\]\$git_dirty\[$txtrst\]\$ "
+fi
+EOF
+
 # Install ruby and various dev tools
 apt-get update
 apt-get -yq install --no-install-recommends \
@@ -21,7 +36,7 @@ apt-get -yq install nodejs
 npm install -g bower grunt-cli gulp
 
 # Install drush, phing, phpunit and phpcs
-composer global require drush/drush:6.5.* phing/phing:2.* phpunit/phpunit:4.* squizlabs/php_codesniffer
+composer global require drush/drush:7.* phing/phing:2.* phpunit/phpunit:4.* squizlabs/php_codesniffer
 ln -s $COMPOSER_HOME/vendor/drush/drush/drush /usr/local/bin/drush
 ln -s $COMPOSER_HOME/vendor/bin/phing /usr/local/bin/phing
 ln -s $COMPOSER_HOME/vendor/bin/phpunit /usr/local/bin/phpunit

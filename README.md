@@ -138,6 +138,8 @@ Version 2.1 (2016-01-03)
 
 * Added static ssh host keys for dev images.
 * Added `RUN_USER` and `RUN_GROUP` environment variables to configure user and group for services to run from.
+* Upgraded drush to 7.0.
+* Added [git aware prompt](https://github.com/jimeh/git-aware-prompt). 
 
 
 Version 2.0 (2016-12-06)
