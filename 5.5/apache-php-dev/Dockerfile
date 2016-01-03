@@ -11,8 +11,9 @@ RUN export DEBIAN_FRONTEND="noninteractive" && \
     apt-get -y clean && \
     rm -rf /var/lib/apt/lists/*
 
-# Enable openssh server
+# Configure ssh
 RUN rm -f /etc/service/sshd/down
+ADD dist/ssh/* /etc/ssh/
 
 # Configure git
 ADD dist/configs/gitconfig /etc/gitconfig

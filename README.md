@@ -52,8 +52,8 @@ The following Apache modules are enabled:
 | vhost_alias
 
 
-Development
-===========
+Development images
+==================
 
 All `<image>-dev` images are configured with:
 
@@ -79,6 +79,8 @@ It is possible to create a new system user when the container starts by setting 
 * *USER_ID*: User id of the new user
 * *GIT_NAME*: GIT username to attach to system user
 * *GIT_EMAIL*: GIT email to attach to system user
+* *RUN_USER*: User which starts FPM or Apache 
+* *RUN_GROUP*: Group which starts FPM or Apache 
 
 The user will be created with all sudo rights.
 
@@ -127,6 +129,21 @@ The [examples](examples/) directory contains various `docker-composer` example f
 
 * If all went right you will see a `Hello world` message in your webbrowser on `http://localhost/`. 
 
+
+Changelog
+=========
+
+Version 2.1 (2016-01-03)
+------------------------
+
+* Added static ssh host keys for dev images.
+* Added `RUN_USER` and `RUN_GROUP` environment variables to configure user and group for services to run from.
+
+
+Version 2.0 (2016-12-06)
+------------------------
+
+* Replaced base image `ubuntu:14.04` with `phusion/baseimage`.
 
 
 Contact

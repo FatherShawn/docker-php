@@ -18,7 +18,7 @@ if [ "$USER_CREATE" ] && ! id -u "$USER_CREATE" > /dev/null 2>&1; then
     fi
     if [ "$USER_PUBLIC_KEY" ]; then
         su $USER_CREATE -c "mkdir -p -m 0700 ~/.ssh"
-        su $USER_CREATE -c "echo $USER_PUBLIC_KEY >> ~/.ssh/authorized_keys"
+        su $USER_CREATE -c "echo $USER_PUBLIC_KEY > ~/.ssh/authorized_keys"
         su $USER_CREATE -c "chmod 0600 ~/.ssh/authorized_keys"
         echo "Public key set for user \"$USER_CREATE\""
     fi
@@ -30,21 +30,30 @@ if [ "$USER_CREATE" ] && ! id -u "$USER_CREATE" > /dev/null 2>&1; then
         su $USER_CREATE -c "git config --global user.email \"$GIT_EMAIL\""
         echo "Git email is set to \"$GIT_EMAIL\""
     fi
-    echo "$USER_CREATE ALL=(root) NOPASSWD: ALL" > /etc/sudoers.d/$USER_CREATE
-    chmod 0400 /etc/sudoers.d/$USER_CREATE
+    if [ -d "/etc/sudoers.d" ]; then
+        echo "$USER_CREATE ALL=(root) NOPASSWD: ALL" > /etc/sudoers.d/$USER_CREATE
+        chmod 0400 /etc/sudoers.d/$USER_CREATE
+    fi
+
+    if [ ! "$RUN_USER" ]; then
+        RUN_USER=$USER_CREATE
+    fi
+    if [ ! "$RUN_GROUP" ]; then
+        RUN_GROUP=$USER_CREATE
+    fi
     if [ -f /etc/apache2/envvars ]; then
-        sed -i -e "s/^export APACHE_RUN_USER=.*/export APACHE_RUN_USER=$USER_CREATE/" \
-               -e "s/^export APACHE_RUN_GROUP=.*/export APACHE_RUN_GROUP=$USER_CREATE/" \
+        sed -i -e "s/^export APACHE_RUN_USER=.*/export APACHE_RUN_USER=$RUN_USER/" \
+               -e "s/^export APACHE_RUN_GROUP=.*/export APACHE_RUN_GROUP=$RUN_GROUP/" \
                /etc/apache2/envvars
     fi
     if [ -f /etc/php5/fpm/pool.d/www.conf ]; then
-        sed -i -e "s/^user = .*/user = $USER_CREATE/" \
-               -e "s/^group = .*/group = $USER_CREATE/" \
+        sed -i -e "s/^user = .*/user = $RUN_USER/" \
+               -e "s/^group = .*/group = $RUN_GROUP/" \
                /etc/php5/fpm/pool.d/www.conf
     fi
     if [ -f /etc/php/7.0/fpm/pool.d/www.conf ]; then
-        sed -i -e "s/^user = .*/user = $USER_CREATE/" \
-               -e "s/^group = .*/group = $USER_CREATE/" \
+        sed -i -e "s/^user = .*/user = $RUN_USER/" \
+               -e "s/^group = .*/group = $RUN_GROUP/" \
                /etc/php/7.0/fpm/pool.d/www.conf
     fi
 fi
@@ -54,5 +63,7 @@ unset USER_PASSWORD
 unset USER_PUBLIC_KEY
 unset GIT_NAME
 unset GIT_EMAIL
+unset RUN_USER
+unset RUN_GROUP
 
 exec "$@"

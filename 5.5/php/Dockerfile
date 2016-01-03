@@ -1,6 +1,6 @@
 FROM phusion/baseimage
 MAINTAINER Yosh de Vos "yosh@elzorro.nl"
-ENV RELEASE_DATE 2015-12-06
+ENV RELEASE_DATE 2016-01-03
 
 # Install php and base packages
 RUN export DEBIAN_FRONTEND="noninteractive" && \

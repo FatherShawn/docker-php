@@ -8,8 +8,9 @@ RUN /install-dev-tools.sh && rm /install-dev-tools.sh
 # Display php errors
 RUN sed -i -e 's/^display_errors.*$/display_errors = On/' /etc/php5/fpm/php.ini /etc/php5/cli/php.ini
 
-# Enable openssh server
+# Configure ssh
 RUN rm -f /etc/service/sshd/down
+ADD dist/ssh/* /etc/ssh/
 
 # Configure git
 ADD dist/configs/gitconfig /etc/gitconfig
