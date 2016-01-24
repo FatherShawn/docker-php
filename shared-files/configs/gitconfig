@@ -1,0 +1,14 @@
+[alias]
+        co = checkout
+        cm = commit
+        cp = cherry-pick
+        br = branch
+        me = merge
+        rb = rebase
+        st = status
+        sm = submodule
+        lol = log --graph --decorate --pretty=format:'%C(yellow)%h%Creset%C(auto)%d%Creset %s %Cgreen(%ci) %C(bold blue)<%an>%Creset' --abbrev-commit --all
+[core]
+        autocrlf = input
+[push]
+        default = simple
