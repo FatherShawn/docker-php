@@ -3,7 +3,7 @@ set -e
 
 IMAGES_55="php apache-php apache-php-dev php-fpm php-fpm-dev php-v8js"
 IMAGES_70="php apache-php apache-php-dev php-fpm php-fpm-dev"
-VERSION=2.1
+VERSION=2.3
 
 for IMAGE in $IMAGES_55
 do
