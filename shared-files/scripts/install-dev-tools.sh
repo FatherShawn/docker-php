@@ -23,14 +23,16 @@ apt-get update
 apt-get -yq install --no-install-recommends \
     ruby2.0 ruby2.0-dev build-essential graphviz sshpass rsync
 
-# Configure ruby and install bundler and sass
+# Configure ruby, update rubygems and install bundler and sass
 update-alternatives --install /usr/bin/ruby ruby /usr/bin/ruby2.0 1
 update-alternatives --install /usr/bin/gem gem /usr/bin/gem2.0 1
+gem update --system
 gem install bundler sass
 
 # Install nodejs
-curl -sL https://deb.nodesource.com/setup | bash -
+curl -sL https://deb.nodesource.com/setup_5.x | bash -
 apt-get -yq install nodejs
+npm install -g npm@latest
 
 # Install bower, grunt and gulp
 npm install -g bower grunt-cli gulp

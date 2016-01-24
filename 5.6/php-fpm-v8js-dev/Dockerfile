@@ -1,4 +1,4 @@
-FROM yoshz/php-fpm:5.5
+FROM yoshz/php-fpm-v8js:5.6
 MAINTAINER Yosh de Vos "yosh@elzorro.nl"
 
 # Install base packages
@@ -7,16 +7,16 @@ RUN export DEBIAN_FRONTEND="noninteractive" && \
     apt-get -yq upgrade && \
     apt-get -yq install --no-install-recommends \
         mysql-client \
-        php5-xdebug && \
+        php-xdebug && \
     apt-get -y clean && \
     rm -rf /var/lib/apt/lists/*
 
 # Display php errors
-RUN sed -i -e 's/^display_errors.*$/display_errors = On/' /etc/php5/*/php.ini
+RUN sed -i -e 's/^display_errors.*$/display_errors = On/' /etc/php/5.6/*/php.ini
 
 # Install and enable xdebug
-RUN rm /etc/php5/cli/conf.d/20-xdebug.ini && \
-    echo "xdebug.max_nesting_level=500" > /etc/php5/cli/conf.d/20-xdebug.ini && \
+RUN rm /etc/php/5.6/cli/conf.d/20-xdebug.ini && \
+    echo "xdebug.max_nesting_level=500" > /etc/php/5.6/cli/conf.d/20-xdebug.ini && \
     echo "alias php='php -dzend_extension=xdebug.so'\nalias phpunit='php /usr/local/bin/phpunit'" >> /etc/bash.bashrc
 
 # Install development tools

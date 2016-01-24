@@ -1,22 +1,20 @@
 #!/bin/bash
 set -e
+cd "$(dirname "$0")/.."
 
-IMAGES_55="php apache-php apache-php-dev php-fpm php-fpm-dev php-v8js"
-IMAGES_70="php apache-php apache-php-dev php-fpm php-fpm-dev"
-VERSION=2.3
+CURRENT_RELEASE=2.3
 
-for IMAGE in $IMAGES_55
+for VERSION in 5.5 5.6 7.0
 do
-    docker tag -f yoshz/${IMAGE}:5.5 yoshz/${IMAGE}:latest
-    docker tag -f yoshz/${IMAGE}:5.5 yoshz/${IMAGE}:5.5-${VERSION}
-    docker push yoshz/${IMAGE}:5.5-$VERSION
-    docker push yoshz/${IMAGE}:5.5
-    docker push yoshz/${IMAGE}:latest
-done
+  for IMAGE in `ls $VERSION`
+  do
+    docker tag -f yoshz/${IMAGE}:${VERSION} yoshz/${IMAGE}:${VERSION}-${CURRENT_RELEASE}
+    docker push yoshz/${IMAGE}:${VERSION}-${CURRENT_RELEASE}
+    docker push yoshz/${IMAGE}:${VERSION}
 
-for IMAGE in $IMAGES_70
-do
-    docker tag -f yoshz/${IMAGE}:7.0 yoshz/${IMAGE}:7.0-${VERSION}
-    docker push yoshz/${IMAGE}:7.0-$VERSION
-    docker push yoshz/${IMAGE}:7.0
+    if [ "$VERSION" -eq "7.0" ]; then
+      docker tag -f yoshz/${IMAGE}:${VERSION} yoshz/${IMAGE}:latest
+      docker push yoshz/${IMAGE}:latest
+    fi
+  done
 done

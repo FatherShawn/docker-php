@@ -1,19 +1,34 @@
 FROM yoshz/php-fpm:7.0
 MAINTAINER Yosh de Vos "yosh@elzorro.nl"
 
+# Install base packages
+RUN export DEBIAN_FRONTEND="noninteractive" && \
+    apt-get update && \
+    apt-get -yq upgrade && \
+    apt-get -yq install --no-install-recommends \
+        mysql-client \
+        php-xdebug && \
+    apt-get -y clean && \
+    rm -rf /var/lib/apt/lists/*
+
+# Display php errors
+RUN sed -i -e 's/^display_errors.*$/display_errors = On/' /etc/php/7.0/*/php.ini
+
+# Install and enable xdebug
+RUN rm /etc/php/7.0/cli/conf.d/20-xdebug.ini && \
+    echo "xdebug.max_nesting_level=500" > /etc/php/7.0/cli/conf.d/20-xdebug.ini && \
+    echo "alias php='php -dzend_extension=xdebug.so'\nalias phpunit='php /usr/local/bin/phpunit'" >> /etc/bash.bashrc
+
 # Install development tools
 ADD dist/scripts/install-dev-tools.sh /install-dev-tools.sh
 RUN /install-dev-tools.sh && rm /install-dev-tools.sh
 
-# Display php errors
-RUN sed -i -e 's/^display_errors.*$/display_errors = On/' /etc/php/7.0/fpm/php.ini /etc/php/7.0/cli/php.ini
+# Configure git
+ADD dist/configs/gitconfig /etc/gitconfig
 
 # Configure ssh
 RUN rm -f /etc/service/sshd/down
 ADD dist/ssh/* /etc/ssh/
-
-# Configure git
-ADD dist/configs/gitconfig /etc/gitconfig
 
 # Run tests
 ADD dist/tests/dev-tools.sh /test.sh

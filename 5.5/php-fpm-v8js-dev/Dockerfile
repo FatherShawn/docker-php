@@ -1,4 +1,4 @@
-FROM yoshz/php-fpm:5.5
+FROM yoshz/php-fpm-v8js:5.5
 MAINTAINER Yosh de Vos "yosh@elzorro.nl"
 
 # Install base packages
@@ -13,6 +13,7 @@ RUN export DEBIAN_FRONTEND="noninteractive" && \
 
 # Display php errors
 RUN sed -i -e 's/^display_errors.*$/display_errors = On/' /etc/php5/*/php.ini
+
 
 # Install and enable xdebug
 RUN rm /etc/php5/cli/conf.d/20-xdebug.ini && \

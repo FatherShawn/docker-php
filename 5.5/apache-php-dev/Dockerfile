@@ -11,28 +11,28 @@ RUN export DEBIAN_FRONTEND="noninteractive" && \
     apt-get -y clean && \
     rm -rf /var/lib/apt/lists/*
 
-# Configure ssh
-RUN rm -f /etc/service/sshd/down
-ADD dist/ssh/* /etc/ssh/
-
-# Configure git
-ADD dist/configs/gitconfig /etc/gitconfig
-
 # Display php errors
-RUN sed -i -e 's/^display_errors.*$/display_errors = On/' /etc/php5/apache2/php.ini /etc/php5/cli/php.ini
+RUN sed -i -e 's/^display_errors.*$/display_errors = On/' /etc/php5/*/php.ini
 
 # Install and enable xdebug
-RUN echo "xdebug.max_nesting_level=500" > /etc/php5/mods-available/xdebug.ini && \
-    echo "alias php='php -dzend_extension=xdebug.so'\nalias phpunit='php /usr/local/bin/phpunit'" >> /etc/bash.bashrc && \
-    php5enmod xdebug
+RUN rm /etc/php5/cli/conf.d/20-xdebug.ini && \
+    echo "xdebug.max_nesting_level=500" > /etc/php5/cli/conf.d/20-xdebug.ini && \
+    echo "alias php='php -dzend_extension=xdebug.so'\nalias phpunit='php /usr/local/bin/phpunit'" >> /etc/bash.bashrc
 
 # Install development tools
 ADD dist/scripts/install-dev-tools.sh /install-dev-tools.sh
 RUN /install-dev-tools.sh && rm /install-dev-tools.sh
 
+# Configure git
+ADD dist/configs/gitconfig /etc/gitconfig
+
+# Configure ssh
+RUN rm -f /etc/service/sshd/down
+ADD dist/ssh/* /etc/ssh/
+
 # Run tests
 ADD dist/tests/dev-tools.sh /test.sh
-RUN /test.sh
+RUN /test.sh && rm /test.sh
 
 # Add entrypoint script
 ADD dist/scripts/dev-entrypoint.sh /entrypoint.sh
