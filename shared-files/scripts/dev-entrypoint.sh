@@ -7,7 +7,6 @@ if [ "$USER_CREATE" ] && ! id -u "$USER_CREATE" > /dev/null 2>&1; then
     else
         useradd -d /var/www -s /bin/bash $USER_CREATE
     fi
-    chown ${USER_CREATE}. /var/www
     su $USER_CREATE -c "cp /etc/skel/{.bash_logout,.bashrc,.profile} ~/"
     echo "User $USER_CREATE is added"
     if [ "$USER_PASSWORD" ]; then
