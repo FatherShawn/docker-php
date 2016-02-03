@@ -138,6 +138,12 @@ The following Apache modules are enabled:
 Changelog
 =========
 
+Version 2.3 (2016-02-03)
+------------------------
+
+* Removed chown of /var/www in dev-entrypoint.sh which resolves in an error when using virtualbox.
+* Fixed wrong run user/group for FPM.
+
 Version 2.2 (2016-01-24)
 ------------------------
 

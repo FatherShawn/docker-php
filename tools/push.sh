@@ -12,7 +12,7 @@ do
     docker push yoshz/${IMAGE}:${VERSION}-${CURRENT_RELEASE}
     docker push yoshz/${IMAGE}:${VERSION}
 
-    if [ "$VERSION" -eq "7.0" ]; then
+    if [ "$VERSION" == "7.0" ]; then
       docker tag -f yoshz/${IMAGE}:${VERSION} yoshz/${IMAGE}:latest
       docker push yoshz/${IMAGE}:latest
     fi
