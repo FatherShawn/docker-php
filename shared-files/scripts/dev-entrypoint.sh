@@ -45,15 +45,19 @@ if [ "$USER_CREATE" ] && ! id -u "$USER_CREATE" > /dev/null 2>&1; then
                -e "s/^export APACHE_RUN_GROUP=.*/export APACHE_RUN_GROUP=$RUN_GROUP/" \
                /etc/apache2/envvars
     fi
+    function apply_fpm_config {
+        sed -i -e "s/^user = .*/user = $RUN_USER/" \
+               -e "s/^group = .*/group = $RUN_GROUP/" \
+               -e "s/^listen.user = .*/listen.user = $RUN_USER/" \
+               -e "s/^listen.group = .*/listen.group = $RUN_GROUP/" \
+               $1
+    }
     if [ -f /etc/php5/fpm/pool.d/www.conf ]; then
-        sed -i -e "s/^user = .*/user = $RUN_USER/" \
-               -e "s/^group = .*/group = $RUN_GROUP/" \
-               /etc/php5/fpm/pool.d/www.conf
-    fi
-    if [ -f /etc/php/7.0/fpm/pool.d/www.conf ]; then
-        sed -i -e "s/^user = .*/user = $RUN_USER/" \
-               -e "s/^group = .*/group = $RUN_GROUP/" \
-               /etc/php/7.0/fpm/pool.d/www.conf
+        apply_fpm_config '/etc/php5/fpm/pool.d/www.conf';
+    elif [ -f /etc/php/5.6/fpm/pool.d/www.conf ]; then
+        apply_fpm_config '/etc/php/5.6/fpm/pool.d/www.conf';
+    elif [ -f /etc/php/7.0/fpm/pool.d/www.conf ]; then
+        apply_fpm_config '/etc/php/7.0/fpm/pool.d/www.conf';
     fi
 fi
 
