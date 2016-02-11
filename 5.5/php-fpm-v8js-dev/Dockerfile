@@ -6,7 +6,6 @@ RUN export DEBIAN_FRONTEND="noninteractive" && \
     apt-get update && \
     apt-get -yq upgrade && \
     apt-get -yq install --no-install-recommends \
-        mysql-client \
         php5-xdebug && \
     apt-get -y clean && \
     rm -rf /var/lib/apt/lists/*

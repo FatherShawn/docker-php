@@ -1,6 +1,6 @@
 FROM phusion/baseimage
 MAINTAINER Yosh de Vos "yosh@elzorro.nl"
-ENV RELEASE_DATE 2016-01-24
+ENV RELEASE_DATE 2016-02-11
 
 # Install php and base packages
 RUN export DEBIAN_FRONTEND="noninteractive" && \
@@ -14,6 +14,7 @@ RUN export DEBIAN_FRONTEND="noninteractive" && \
         php5-mysql \
         php5-intl \
         php5-json \
+        php5-pgsql \
         php5-sqlite \
         git curl zip unzip acl && \
     apt-get -y clean && \
@@ -21,6 +22,9 @@ RUN export DEBIAN_FRONTEND="noninteractive" && \
 
 # Install composer
 RUN COMPOSER_HOME=/usr/local/composer curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
+# Enable mcrypt
+RUN php5enmod mcrypt
 
 # Run tests
 ADD dist/tests/php55.sh /test.sh

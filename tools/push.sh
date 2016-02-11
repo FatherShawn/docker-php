@@ -2,7 +2,7 @@
 set -e
 cd "$(dirname "$0")/.."
 
-CURRENT_RELEASE=2.3
+CURRENT_RELEASE=2.4
 
 for VERSION in 5.5 5.6 7.0
 do

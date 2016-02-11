@@ -1,7 +1,12 @@
 #!/bin/bash
 
 export DEBIAN_FRONTEND="noninteractive"
-export COMPOSER_HOME=/usr/local/composer
+
+# Install ruby and various dev tools
+apt-get update
+apt-get -yq install --no-install-recommends \
+    ruby2.0 ruby2.0-dev build-essential graphviz sshpass rsync \
+    mysql-client postgresql-client dnsutils telnet bash-completion
 
 # Install git aware prompt
 curl https://codeload.github.com/jimeh/git-aware-prompt/zip/master > /tmp/git-aware-prompt-master.zip
@@ -18,11 +23,6 @@ if [ -d "$GITAWAREPROMPT" ]; then
 fi
 EOF
 
-# Install ruby and various dev tools
-apt-get update
-apt-get -yq install --no-install-recommends \
-    ruby2.0 ruby2.0-dev build-essential graphviz sshpass rsync
-
 # Configure ruby, update rubygems and install bundler and sass
 update-alternatives --install /usr/bin/ruby ruby /usr/bin/ruby2.0 1
 update-alternatives --install /usr/bin/gem gem /usr/bin/gem2.0 1
@@ -38,21 +38,28 @@ npm install -g npm@latest
 npm install -g bower grunt-cli gulp
 
 # Install drush, phing, phpunit and phpcs
-composer global require drush/drush:7.* phing/phing:2.* phpunit/phpunit:4.* squizlabs/php_codesniffer
-ln -s $COMPOSER_HOME/vendor/drush/drush/drush /usr/local/bin/drush
-ln -s $COMPOSER_HOME/vendor/bin/phing /usr/local/bin/phing
-ln -s $COMPOSER_HOME/vendor/bin/phpunit /usr/local/bin/phpunit
-ln -s $COMPOSER_HOME/vendor/bin/phpcs /usr/local/bin/phpcs
+curl -L http://files.drush.org/drush.phar > /usr/local/bin/drush
+curl -L https://phar.phpunit.de/phpunit-old.phar > /usr/local/bin/phpunit
+curl -L http://www.phing.info/get/phing-latest.phar > /usr/local/bin/phing
+curl -L https://squizlabs.github.io/PHP_CodeSniffer/phpcs.phar > /usr/local/bin/phpcs
+curl -L https://squizlabs.github.io/PHP_CodeSniffer/phpcbf.phar > /usr/local/bin/phpcbf
+chmod 0755 /usr/local/bin/*
 
-# Add symfony2 code styling
-git clone git://github.com/escapestudios/Symfony2-coding-standard.git /tmp/Symfony2-coding-standard
-cp -a /tmp/Symfony2-coding-standard/Symfony2 $COMPOSER_HOME/vendor/squizlabs/php_codesniffer/CodeSniffer/Standards/
-rm -rf /tmp/Symfony2-coding-standard
+# Configure additional coding-standards directory
+mkdir -p /usr/local/share/coding-standards
+phpcs --config-set installed_paths /usr/local/share/coding-standards
 
-# Add drupal code styling
-git clone --branch 7.x-2.x http://git.drupal.org/project/coder.git /tmp/coder
-cp -a /tmp/coder/coder_sniffer/Drupal $COMPOSER_HOME/vendor/squizlabs/php_codesniffer/CodeSniffer/Standards/
-rm -rf /tmp/coder
+# Install symfony2 code styling
+curl -L https://github.com/escapestudios/Symfony2-coding-standard/archive/master.zip > /tmp/Symfony2-coding-standard.zip
+unzip /tmp/Symfony2-coding-standard.zip -d /tmp/Symfony2-coding-standard
+mv /tmp/Symfony2-coding-standard/Symfony2-coding-standard-master/Symfony2 /usr/local/share/coding-standards
+rm -rf /tmp/Symfony2-coding-standard*
+
+# Install drupal code styling
+curl -L https://ftp.drupal.org/files/projects/coder-8.x-2.6.zip > /tmp/drupal-coder.zip
+unzip /tmp/drupal-coder.zip -d /tmp/drupal-coder
+mv /tmp/drupal-coder/coder/coder_sniffer/Drupal /usr/local/share/coding-standards
+rm -rf /tmp/drupal-coder*
 
 # Clean up
 apt-get -y clean

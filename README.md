@@ -138,6 +138,12 @@ The following Apache modules are enabled:
 Changelog
 =========
 
+Version 2.4 (2016-02-11)
+------------------------
+
+* Added and enabled mcrypt and pgsql PHP extensions
+* Added postgresql-client, bash-completion, dnsutils and telnet packages
+
 Version 2.3 (2016-02-03)
 ------------------------
 
