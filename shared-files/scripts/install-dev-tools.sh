@@ -37,12 +37,19 @@ npm install -g npm@latest
 # Install bower, grunt and gulp
 npm install -g bower grunt-cli gulp
 
-# Install drush, phing, phpunit and phpcs
+# Install phpunit
+if [ `php -r "echo version_compare(PHP_VERSION, '5.6');"` -ge "0" ]; then
+    curl -L https://phar.phpunit.de/phpunit.phar > /usr/local/bin/phpunit
+else
+    curl -L https://phar.phpunit.de/phpunit-old.phar > /usr/local/bin/phpunit
+fi
+
+# Install drush, phing, phpcs, behat
 curl -L http://files.drush.org/drush.phar > /usr/local/bin/drush
-curl -L https://phar.phpunit.de/phpunit-old.phar > /usr/local/bin/phpunit
 curl -L http://www.phing.info/get/phing-latest.phar > /usr/local/bin/phing
-curl -L https://squizlabs.github.io/PHP_CodeSniffer/phpcs.phar > /usr/local/bin/phpcs
-curl -L https://squizlabs.github.io/PHP_CodeSniffer/phpcbf.phar > /usr/local/bin/phpcbf
+curl -L https://github.com/squizlabs/PHP_CodeSniffer/releases/download/2.5.1/phpcs.phar > /usr/local/bin/phpcs
+curl -L https://github.com/squizlabs/PHP_CodeSniffer/releases/download/2.5.1/phpcbf.phar > /usr/local/bin/phpcbf
+curl -L https://github.com/Behat/Behat/releases/download/v3.0.15/behat.phar  > /usr/local/bin/behat
 chmod 0755 /usr/local/bin/*
 
 # Configure additional coding-standards directory

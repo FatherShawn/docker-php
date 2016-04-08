@@ -1,6 +1,6 @@
 FROM phusion/baseimage
 MAINTAINER Yosh de Vos "yosh@elzorro.nl"
-ENV RELEASE_DATE 2016-02-11
+ENV RELEASE_DATE 2016-04-08
 
 # Install base packages
 RUN export LANG=en_US.UTF-8 && \
@@ -20,7 +20,7 @@ RUN export LANG=en_US.UTF-8 && \
         php7.0-opcache \
         php7.0-pgsql \
         php7.0-sqlite3 \
-        git curl zip unzip acl && \
+        subversion git curl zip unzip acl && \
     apt-get -y clean && \
     rm -rf /var/lib/apt/lists/*
 

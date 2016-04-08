@@ -56,3 +56,8 @@ echo -n "Checking if drush is installed... "
 drush --version > /dev/null
 [ "$?" -ne 0 ] && echo "Failed" && exit 1
 echo ok
+
+echo -n "Checking if behat is installed... "
+behat --version > /dev/null
+[ "$?" -ne 0 ] && echo "Failed" && exit 1
+echo ok
