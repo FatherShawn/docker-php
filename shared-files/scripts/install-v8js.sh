@@ -10,12 +10,12 @@ if [ -d "/etc/php5" ]; then
   V8JS_VERSION=0.4.1
 elif [ -d "/etc/php/5.6" ]; then
   PHP_PACKAGES="php5.6-dev php-pear"
-  PHP_MODS_DIR=/etc/php/mods-available
+  PHP_MODS_DIR=/etc/php/5.6/mods-available
   PHPENMOD="phpenmod -v 5.6 -s ALL"
   V8JS_VERSION=0.4.1
 elif [ -d "/etc/php/7.0" ]; then
   PHP_PACKAGES="php7.0-dev php-pear"
-  PHP_MODS_DIR=/etc/php/mods-available
+  PHP_MODS_DIR=/etc/php/7.0/mods-available
   PHPENMOD="phpenmod -v 7.0 -s ALL"
   V8JS_VERSION=1.1.0
 else
