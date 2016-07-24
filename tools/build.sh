@@ -21,7 +21,7 @@ if [ -n "$2" ]; then
     exit 1
   fi
 else
-  IMAGES="php apache-php apache-php-dev php-fpm php-fpm-dev php-fpm-v8js php-fpm-v8js-dev"
+  IMAGES="php apache-php apache-php-dev php-fpm php-fpm-dev"
 fi
 
 for VERSION in $VERSIONS

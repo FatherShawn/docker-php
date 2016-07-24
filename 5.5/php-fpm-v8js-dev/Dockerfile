@@ -15,6 +15,7 @@ RUN sed -i -e 's/^display_errors.*$/display_errors = On/' /etc/php5/*/php.ini
 
 
 # Install and enable xdebug
+ADD dist/configs/xdebug.ini /etc/php/5.5/fpm/conf.d/20-xdebug.ini
 RUN rm /etc/php5/cli/conf.d/20-xdebug.ini && \
     echo "xdebug.max_nesting_level=500" > /etc/php5/cli/conf.d/20-xdebug.ini && \
     echo "alias php='php -dzend_extension=xdebug.so'\nalias phpunit='php /usr/local/bin/phpunit'" >> /etc/bash.bashrc

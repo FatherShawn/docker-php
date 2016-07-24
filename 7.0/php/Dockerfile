@@ -1,6 +1,6 @@
 FROM phusion/baseimage
 MAINTAINER Yosh de Vos "yosh@elzorro.nl"
-ENV RELEASE_DATE 2016-04-19
+ENV RELEASE_DATE 2016-06-10
 
 # Install base packages
 RUN export LANG=en_US.UTF-8 && \

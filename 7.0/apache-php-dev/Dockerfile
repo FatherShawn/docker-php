@@ -14,6 +14,7 @@ RUN export DEBIAN_FRONTEND="noninteractive" && \
 RUN sed -i -e 's/^display_errors.*$/display_errors = On/' /etc/php/7.0/*/php.ini
 
 # Install and enable xdebug
+ADD dist/configs/xdebug.ini /etc/php/7.0/apache2/conf.d/20-xdebug.ini
 RUN rm /etc/php/7.0/cli/conf.d/20-xdebug.ini && \
     echo "xdebug.max_nesting_level=500" > /etc/php/7.0/cli/conf.d/20-xdebug.ini && \
     echo "alias php='php -dzend_extension=xdebug.so'\nalias phpunit='php /usr/local/bin/phpunit'" >> /etc/bash.bashrc

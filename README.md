@@ -138,6 +138,12 @@ The following Apache modules are enabled:
 Changelog
 =========
 
+Version 2.5 (2016-06-10)
+-----------------------
+
+* Updated PHP to latest minor version
+* Enabled remote xdebug for all dev images
+
 Version 2.4 (2016-02-11)
 ------------------------
 
